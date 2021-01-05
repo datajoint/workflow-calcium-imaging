@@ -1,0 +1,45 @@
+version: '2.4'
+x-net: &net
+    networks:
+      - main
+services:
+  db:
+    <<: *net
+    image: datajoint/mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=simple
+    # volumes:
+    #   - ./db/data:/var/lib/mysql
+  app:
+    <<: *net
+    image: datajoint/djlab:py3.8-alpine
+    environment:
+      - DJ_HOST=db
+      - DJ_USER=root
+      - DJ_PASS=simple
+      - EXAMPLE_SUBJECT_NAME=moser_3d
+    working_dir: /main
+    user: "1000:anaconda"
+    ports:
+      - "8888:8888"
+    command:
+      - sh
+      - -c
+      - |
+        set -e
+        pip install --pre datajoint # for now
+        pip install -e .
+        python workflow_imaging/prepare.py
+        python workflow_imaging/ingest.py
+        python workflow_imaging/populate.py
+        jupyter lab
+    volumes:
+      - .:/main
+      - ./apk_requirements.txt:/tmp/apk_requirements.txt
+      - ./notebook:/home/dja/notebooks
+      - ./imaging_sample_data:/tmp/imaging_root_data_dir
+    depends_on:
+      db:
+        condition: service_healthy
+networks:
+  main:

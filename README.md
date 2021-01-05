@@ -78,6 +78,7 @@ The Calcium imaging pipeline presented here uses pipeline components from 3 Data
 
 + From the root of the cloned repository directory:
     ```
+    pip install --pre datajoint # for now
     pip install .
     ```
 
@@ -182,9 +183,10 @@ root_data_dir/
     ```
     python workflow_imaging/prepare.py
     ```
+    Note: If using `imaging_sample_data` (see maintainer for access), you may specify one of the subdirectories in `EXAMPLE_SUBJECT_NAME` environment variable.
 2. Import session data - run:
     ```
-    python workflow_imaging/ingestion.py
+    python workflow_imaging/ingest.py
     ```
 3. Import clustering data and populate downstream analyses - run:
     ```
