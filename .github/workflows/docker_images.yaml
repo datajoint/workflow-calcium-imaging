@@ -19,7 +19,7 @@ jobs:
         if: |
           github.event_name == 'push' &&
           startsWith(github.ref, 'refs/tags') &&
-          github.repository_owner == 'yambottle'
+          github.repository_owner == 'datajoint'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
@@ -34,7 +34,7 @@ jobs:
       release_upload_url: ${{steps.create_release.outputs.upload_url}}
   call_u24_docker_image_py39:
     needs: [get_meta]
-    uses: Yambottle/djsciops-cicd/.github/workflows/u24_docker_images.yaml@main
+    uses: dj-sciops/djsciops-cicd/.github/workflows/u24_docker_images.yaml@main
     with:
       jhub_ver: 1.4.2
       py_ver: 3.9
@@ -47,7 +47,7 @@ jobs:
       REGISTRY_PASSWORD: ${{secrets.REGISTRY_PASSWORD}}
   call_u24_docker_image_py38:
     needs: [get_meta]
-    uses: Yambottle/djsciops-cicd/.github/workflows/u24_docker_images.yaml@main
+    uses: dj-sciops/djsciops-cicd/.github/workflows/u24_docker_images.yaml@main
     with:
       jhub_ver: 1.4.2
       py_ver: 3.8
