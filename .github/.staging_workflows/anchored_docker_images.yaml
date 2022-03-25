@@ -1,0 +1,87 @@
+#
+
+name: docker_images
+on:
+  push:
+  pull_request:
+
+### For act testing locally
+anchor-dev-if: &dev-if
+  if: |
+    github.event_name == 'push' &&
+    startsWith(github.ref, 'refs/tags') &&
+    github.repository_owner == 'yambottle'
+anchor-dev-workflow: &dev-workflow
+  uses: Yambottle/djsciops-cicd/.github/workflows/u24_docker_images.yaml@main
+### For Github Action run in your own fork with release
+anchor-test-if: &test-if
+  if: |
+    github.event_name == 'push' &&
+    startsWith(github.ref, 'refs/tags') &&
+    github.repository_owner == 'yambottle'
+anchor-test-workflow: &test-workflow
+  uses: dj-sciops/djsciops-cicd/.github/workflows/u24_docker_images.yaml@main
+### For Github Action run in datajoint
+anchor-prod-if: &prod-if
+  if: |
+    github.event_name == 'push' &&
+    startsWith(github.ref, 'refs/tags') &&
+    github.repository_owner == 'datajoint'
+anchor-prod-workflow: &prod-workflow
+  uses: dj-sciops/djsciops-cicd/.github/workflows/u24_docker_images.yaml@main
+### Common anchor
+anchor-workflow-secrets: &workflow-secrets
+  secrets:
+    RAW_DEPLOY_KEY: ${{secrets.RAW_DEPLOY_KEY}}
+    REGISTRY_USERNAME: ${{secrets.REGISTRY_USERNAME}}
+    REGISTRY_PASSWORD: ${{secrets.REGISTRY_PASSWORD}}
+
+jobs:
+  get_meta:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - id: get_version
+        name: Get build metadata
+        run: |
+          ## Get workflow version as codebook env image version
+          PACKAGE_DIR=$(ls | grep workflow)
+          echo "::set-output name=workflow_version::$(cat ${PACKAGE_DIR}/version.py | tail -1 | awk -F\' '{print $2}')"
+      - id: create_release
+        name: Create release
+        !!merge <<: *$STAGE-if
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        with:
+          tag_name: ${{steps.get_version.outputs.workflow_version}}
+          release_name: Release ${{steps.get_version.outputs.workflow_version}}
+          body: Release ${{steps.get_version.outputs.workflow_version}}
+          draft: false
+          prerelease: false
+    outputs:
+      workflow_version: ${{steps.get_version.outputs.workflow_version}}
+      release_upload_url: ${{steps.create_release.outputs.upload_url}}
+  
+  call_u24_docker_image_py39:
+    needs: [get_meta]
+    !!merge <<: *$STAGE-workflow
+    with:
+      jhub_ver: 1.4.2
+      py_ver: 3.9
+      dist: debian
+      workflow_version: ${{needs.get_meta.outputs.workflow_version}}
+      release_upload_url: ${{needs.get_meta.outputs.release_upload_url}}
+    !!merge <<: *workflow-secrets
+  call_u24_docker_image_py38:
+    needs: [get_meta]
+    !!merge <<: *$STAGE-workflow
+    with:
+      jhub_ver: 1.4.2
+      py_ver: 3.8
+      dist: debian
+      workflow_version: ${{needs.get_meta.outputs.workflow_version}}
+      release_upload_url: ${{needs.get_meta.outputs.release_upload_url}}
+    !!merge <<: *workflow-secrets
+
+#

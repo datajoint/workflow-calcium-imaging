@@ -118,3 +118,4 @@ Diagram.ipynb
 
 # docker
 .env
+*.pem
