@@ -15,10 +15,16 @@ from workflow_calcium_imaging.paths import get_imaging_root_data_dir
 
 
 def ingest_subjects(
-    subject_csv_path="./user_data/subjects.csv", skip_duplicates=True, verbose=True
+    subject_csv_path: str = "./user_data/subjects.csv",
+    skip_duplicates: bool = True,
+    verbose: bool = True,
 ):
-    """
-    Ingest subjects listed in the subject column of ./user_data/subjects.csv
+    """Ingest subjects listed in the subject column of ./user_data/subjects.csv to the Subject table.
+
+    Args:
+        subject_csv_path (str): path of the csv file that contains the subject information.
+        skip_duplicates (bool, optional): _description_. Defaults to True.
+        verbose (bool): _description_. Defaults to True.
     """
     csvs = [subject_csv_path]
     tables = [subject.Subject()]
@@ -29,6 +35,18 @@ def ingest_subjects(
 def ingest_sessions(
     session_csv_path="./user_data/sessions.csv", skip_duplicates=True, verbose=True
 ):
+    """_summary_
+
+    Args:
+        session_csv_path (str, optional): path of the csv file that contains the subject information.
+            Defaults to "./user_data/sessions.csv".
+        skip_duplicates (bool, optional): _description_. Defaults to True.
+        verbose (bool, optional): _description_. Defaults to True.
+
+    Raises:
+        FileNotFoundError: _description_
+        NotImplementedError: _description_
+    """
     root_data_dir = get_imaging_root_data_dir()
 
     # ---------- Insert new "Session" and "Scan" ---------
@@ -136,11 +154,18 @@ def ingest_events(
     skip_duplicates=True,
     verbose=True,
 ):
-    """
-    Ingest each level of experiment heirarchy for element-trial:
+    """Ingest each level of experiment heirarchy for element-trial:
         recording, block (i.e., phases of trials), trials (repeated units),
         events (optionally 0-duration occurances within trial).
     This ingestion function is duplicated across wf-array-ephys and wf-calcium-imaging
+
+    Args:
+        recording_csv_path (str, optional): _description_. Defaults to "./user_data/behavior_recordings.csv".
+        block_csv_path (str, optional): _description_. Defaults to "./user_data/blocks.csv".
+        trial_csv_path (str, optional): _description_. Defaults to "./user_data/trials.csv".
+        event_csv_path (str, optional): _description_. Defaults to "./user_data/events.csv".
+        skip_duplicates (bool, optional): _description_. Defaults to True.
+        verbose (bool, optional): _description_. Defaults to True.
     """
     csvs = [
         recording_csv_path,
@@ -182,7 +207,13 @@ def ingest_events(
 def ingest_alignment(
     alignment_csv_path="./user_data/alignments.csv", skip_duplicates=True, verbose=True
 ):
-    """This is duplicated across wf-array-ephys and wf-calcium-imaging"""
+    """This is duplicated across wf-array-ephys and wf-calcium-imaging
+
+    Args:
+        alignment_csv_path (str, optional): _description_. Defaults to "./user_data/alignments.csv".
+        skip_duplicates (bool, optional): _description_. Defaults to True.
+        verbose (bool, optional): _description_. Defaults to True.
+    """
 
     csvs = [alignment_csv_path]
     tables = [event.AlignmentEvent()]
