@@ -8,7 +8,7 @@ def get_imaging_root_data_dir():
     processing routines, etc.).
 
     Returns:
-        Path or None: A string for full path to the imaging root data directory, or list of strings for
+        Path: Full path to the imaging root data directory, or list of Paths for
         possible root data directories.
     """
     data_dir = dj.config.get("custom", {}).get("imaging_root_data_dir", None)
