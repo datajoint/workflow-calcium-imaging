@@ -2,7 +2,7 @@ import datajoint as dj
 import pathlib
 
 
-def get_imaging_root_data_dir():
+def get_imaging_root_data_dir() -> pathlib.Path:
     """Retrieve the root data directories containing the imaging data
     for all subjects/sessions (e.g. acquired ScanImage raw files, output files from
     processing routines, etc.).
@@ -22,8 +22,10 @@ def get_scan_image_files(scan_key):
         scan_key (dict): Primary key of an entry in Scan table.
 
     Raises:
-        FileNotFoundError: If the session directory associated with the scan_key is not found.
-        FileNotFoundError: If no .tif file is found in the session directory associated with the scan_key.
+        FileNotFoundError: If the session directory associated with the scan_key is not
+            found.
+        FileNotFoundError: If no .tif file is found in the session directory associated
+            with the scan_key.
 
     Returns:
         list: A list of ScanImage files' full file-paths.
@@ -52,8 +54,10 @@ def get_scan_box_files(scan_key):
         scan_key (dict): Primary key of an entry in Scan table.
 
     Raises:
-        FileNotFoundError: If the session directory associated with the scan_key is not found.
-        FileNotFoundError: If no .sbx file is found in the session directory associated with the scan_key.
+        FileNotFoundError: If the session directory associated with the scan_key is not
+            found.
+        FileNotFoundError: If no .sbx file is found in the session directory associated
+            with the scan_key.
 
     Returns:
         list: A list of Scanbox files' full file-paths.
@@ -82,8 +86,10 @@ def get_nd2_files(scan_key):
         scan_key (dict): Primary key of an entry in Scan table.
 
     Raises:
-        FileNotFoundError: If the session directory associated with the scan_key is not found.
-        FileNotFoundError: If no .nd2 file is found in the session directory associated with the scan_key.
+        FileNotFoundError: If the session directory associated with the scan_key is not
+            found.
+        FileNotFoundError: If no .nd2 file is found in the session directory associated
+            with the scan_key.
 
     Returns:
         list: A list of Nikon files' full file-paths.
@@ -112,8 +118,10 @@ def get_prairieview_files(scan_key):
         scan_key (dict): Primary key of an entry in Scan table.
 
     Raises:
-        FileNotFoundError: If the session directory associated with the scan_key is not found.
-        FileNotFoundError: If no .tif file is found in the session directory associated with the scan_key.
+        FileNotFoundError: If the session directory associated with the scan_key is not
+            found.
+        FileNotFoundError: If no .tif file is found in the session directory associated
+            with the scan_key.
 
     Returns:
         list: A list of Bruker PrairieView files' full file-paths.
