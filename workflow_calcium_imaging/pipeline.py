@@ -4,7 +4,14 @@ from element_animal import subject
 from element_session import session_with_datetime as session
 from element_event import trial, event
 from element_calcium_imaging import scan, imaging
-from element_lab.lab import Source, Lab, Protocol, User, Location, Project
+from element_lab.lab import (
+    Source,
+    Lab,
+    Protocol,
+    User,
+    Project,
+    Location as LabLocation,
+)
 from element_animal.subject import Subject
 from .paths import (
     get_imaging_root_data_dir,
@@ -36,6 +43,7 @@ __all__ = [
     "User",
     "Project",
     "Session",
+    "LabLocation",
     "Location",
     "get_imaging_root_data_dir",
     "get_scan_image_files",
