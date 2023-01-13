@@ -1,5 +1,5 @@
-# docker-compose -f ./docker/docker-compose-dev.yaml up --build -d
-# docker-compose -f ./docker/docker-compose-dev.yaml down
+# docker-compose -f ./docker/docker-compose-test.yaml up --build
+# docker-compose -f ./docker/docker-compose-test.yaml down
 
 version: "2.4"
 x-net: &net
@@ -9,19 +9,29 @@ services:
   db:
     <<: *net
     image: datajoint/mysql:5.7
-    container_name: workflow-calcium-imaging-dev-db
+    container_name: workflow-calcium-imaging-test-db
     environment:
       - MYSQL_ROOT_PASSWORD=simple
   workflow:
     <<: *net
     build:
       context: ../../
-      dockerfile: ./workflow-calcium-imaging/docker/Dockerfile.dev
-    env_file: .env
-    image: workflow-calcium-imaging-dev:0.1.0a2
-    container_name: workflow-calcium-imaging-dev
+      dockerfile: ./workflow-calcium-imaging/docker/Dockerfile.test
+    image: workflow-calcium-imaging-test:0.1.0a2
+    container_name: workflow-calcium-imaging-test
     environment:
-      - IMAGING_ROOT_DATA_DIR=/main/test_data/workflow_calcium_imaging/
+      - DJ_HOST=db
+      - DJ_USER=root
+      - DJ_PASS=simple
+      - IMAGING_ROOT_DATA_DIR=/main/test_data
+      - DATABASE_PREFIX=test_
+    command:
+      - bash
+      - -c
+      - |
+        echo "------ INTEGRATION TESTS ------"
+        pytest -sv --cov-report term-missing --cov=workflow_calcium_imaging -p no:warnings
+        tail -f /dev/null
     volumes:
       - ${TEST_DATA_DIR}:/main/test_data
       - ./apt_requirements.txt:/tmp/apt_requirements.txt

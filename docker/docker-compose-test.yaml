@@ -2,9 +2,10 @@
 # docker-compose -f ./docker/docker-compose-test.yaml down
 
 version: "2.4"
-x-net: &net
+x-net:
+  &net
   networks:
-      - main
+    - main
 services:
   db:
     <<: *net
