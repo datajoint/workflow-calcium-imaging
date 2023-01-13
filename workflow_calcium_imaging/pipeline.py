@@ -2,7 +2,6 @@ import datajoint as dj
 from element_lab import lab
 from element_animal import subject
 from element_session import session_with_datetime as session
-from element_event import trial, event
 from element_calcium_imaging import scan, imaging
 from element_lab.lab import (
     Source,
@@ -32,8 +31,6 @@ __all__ = [
     "lab",
     "session",
     "Equipment",
-    "trial",
-    "event",
     "scan",
     "imaging",
     "Subject",
@@ -65,15 +62,6 @@ Equipment = reference.Equipment
 Location = reference.BrainRegion
 session.activate(db_prefix + "session", linking_module=__name__)
 
-
-# Activate "event" and "trial" schema ---------------------------------
-
-trial.activate(db_prefix + "trial", db_prefix + "event", linking_module=__name__)
-
 # ------------- Activate "imaging" schema -------------
 
 imaging.activate(db_prefix + "imaging", db_prefix + "scan", linking_module=__name__)
-
-# ------------- Activate "analysis" schema ------------
-
-analysis.activate(db_prefix + "analysis", linking_module=__name__)

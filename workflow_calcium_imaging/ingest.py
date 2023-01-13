@@ -8,14 +8,14 @@ from workflow_calcium_imaging.pipeline import (
     scan,
     session,
     Equipment,
-    trial,
-    event,
 )
 from workflow_calcium_imaging.paths import get_imaging_root_data_dir
 
 
 def ingest_subjects(
-    subject_csv_path:str="./user_data/subjects.csv", skip_duplicates:bool=True, verbose:bool=True
+    subject_csv_path: str = "./user_data/subjects.csv",
+    skip_duplicates: bool = True,
+    verbose: bool = True,
 ):
     """Inserts ./user_data/subject.csv data into corresponding subject schema tables.
 
@@ -141,91 +141,6 @@ def ingest_sessions(
         print("\n---- Successfully completed ingest_sessions ----")
 
 
-def ingest_events(
-    recording_csv_path="./user_data/behavior_recordings.csv",
-    block_csv_path="./user_data/blocks.csv",
-    trial_csv_path="./user_data/trials.csv",
-    event_csv_path="./user_data/events.csv",
-    skip_duplicates=True,
-    verbose=True,
-):
-    """
-    Ingest session, block, trial, and event data.
-
-    Ingest each level of experiment hierarchy for element-trial: recording, block (i.e.,
-    phases of trials), trials (repeated units), events (optionally 0-duration occurances
-    within trial).
-
-    This ingestion function is duplicated across wf-array-ephys and wf-calcium-imaging.
-
-    Args:
-        recording_csv_path (str, optional): relative path of behavior_recordings.csv.
-        block_csv_path (str, optional): relative path of blocks.csv.
-        trial_csv_path (str, optional): relative path of trials.csv.
-        event_csv_path (str, optional): relative path of events.csv.
-        skip_duplicates (bool, optional): Default True. Passed to DataJoint insert.
-        verbose (bool, optional): Display number of entries inserted when ingesting.
-            Default True.
-    """
-    csvs = [
-        recording_csv_path,
-        recording_csv_path,
-        block_csv_path,
-        block_csv_path,
-        trial_csv_path,
-        trial_csv_path,
-        trial_csv_path,
-        trial_csv_path,
-        event_csv_path,
-        event_csv_path,
-        event_csv_path,
-    ]
-    tables = [
-        event.BehaviorRecording(),
-        event.BehaviorRecording.File(),
-        trial.Block(),
-        trial.Block.Attribute(),
-        trial.TrialType(),
-        trial.Trial(),
-        trial.Trial.Attribute(),
-        trial.BlockTrial(),
-        event.EventType(),
-        event.Event(),
-        trial.TrialEvent(),
-    ]
-
-    # Allow direct insert required bc element-trial has Imported that should be Manual
-    ingest_csv_to_table(
-        csvs,
-        tables,
-        skip_duplicates=skip_duplicates,
-        verbose=verbose,
-        allow_direct_insert=True,
-    )
-
-
-def ingest_alignment(
-    alignment_csv_path="./user_data/alignments.csv", skip_duplicates=True, verbose=True
-):
-    """Ingest event alignment information
-    
-    This is duplicated across wf-array-ephys and wf-calcium-imaging.
-
-    Args:
-        alignment_csv_path (str): relative path of alignments.csv
-        skip_duplicates (bool, optional): Default True. Passed to DataJoint insert.
-        verbose (bool, optional): Display number of entries inserted when ingesting.
-            Default True.
-    """
-
-    csvs = [alignment_csv_path]
-    tables = [event.AlignmentEvent()]
-
-    ingest_csv_to_table(csvs, tables, skip_duplicates=skip_duplicates, verbose=verbose)
-
-
 if __name__ == "__main__":
     ingest_subjects()
     ingest_sessions()
-    ingest_events()
-    ingest_alignment()
