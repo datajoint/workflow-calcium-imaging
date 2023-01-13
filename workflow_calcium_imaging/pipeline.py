@@ -13,7 +13,7 @@ from .paths import (
     get_nd2_files,
     get_prairieview_files,
 )
-from . import analysis
+from . import analysis, reference
 
 if "custom" not in dj.config:
     dj.config["custom"] = {}
@@ -53,29 +53,13 @@ subject.activate(db_prefix + "subject", linking_module=__name__)
 
 Session = session.Session
 Experimenter = lab.User
+Equipment = reference.Equipment
 session.activate(db_prefix + "session", linking_module=__name__)
 
 
 # Activate "event" and "trial" schema ---------------------------------
 
 trial.activate(db_prefix + "trial", db_prefix + "event", linking_module=__name__)
-
-
-# ------------- Declare table Equipment for use in element_calcium_imaging -------------
-
-
-@lab.schema
-class Equipment(dj.Manual):
-    """Equipment
-
-    Attributes:
-        scanner (str): Scanner used in imaging.
-    """
-
-    definition = """
-    scanner: varchar(32)
-    """
-
 
 # ------------- Activate "imaging" schema -------------
 
