@@ -54,6 +54,7 @@ subject.activate(db_prefix + "subject", linking_module=__name__)
 Session = session.Session
 Experimenter = lab.User
 Equipment = reference.Equipment
+Location = reference.BrainRegion
 session.activate(db_prefix + "session", linking_module=__name__)
 
 
