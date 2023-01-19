@@ -2,6 +2,7 @@
 from setuptools import setup, find_packages
 from os import path
 import subprocess
+import urllib.request
 
 pkg_name = "workflow_calcium_imaging"
 here = path.abspath(path.dirname(__file__))
@@ -22,7 +23,14 @@ with open(path.join(here, "requirements.txt")) as f:
 with open(path.join(here, pkg_name, "version.py")) as f:
     exec(f.read())
 
-subprocess.call(["pip", "install", "numpy", "Cython"])
+with urllib.request.urlopen(
+    "https://raw.githubusercontent.com/flatironinstitute/CaImAn/master/requirements.txt"
+) as f:
+    caiman_requirements = f.read().decode("UTF-8").split("\n")
+
+caiman_requirements.remove("")
+
+subprocess.call(["pip", "install", "numpy", "Cython"] + caiman_requirements)
 extras_require = {
     "caiman": "caiman @ git+https://github.com/datajoint-company/CaImAn.git"
 }

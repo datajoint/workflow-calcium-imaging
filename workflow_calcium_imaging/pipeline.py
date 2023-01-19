@@ -9,7 +9,6 @@ from element_lab.lab import (
     Protocol,
     User,
     Project,
-    Location as LabLocation,
 )
 from element_animal.subject import Subject
 from .paths import (
@@ -19,7 +18,7 @@ from .paths import (
     get_nd2_files,
     get_prairieview_files,
 )
-from . import analysis, reference
+from . import reference
 
 if "custom" not in dj.config:
     dj.config["custom"] = {}
@@ -40,7 +39,6 @@ __all__ = [
     "User",
     "Project",
     "Session",
-    "LabLocation",
     "Location",
     "get_imaging_root_data_dir",
     "get_scan_image_files",
@@ -58,10 +56,9 @@ subject.activate(db_prefix + "subject", linking_module=__name__)
 
 Session = session.Session
 Experimenter = lab.User
-Equipment = reference.Equipment
-Location = reference.BrainRegion
 session.activate(db_prefix + "session", linking_module=__name__)
 
 # ------------- Activate "imaging" schema -------------
-
+Equipment = reference.Equipment
+Location = reference.BrainRegion
 imaging.activate(db_prefix + "imaging", db_prefix + "scan", linking_module=__name__)

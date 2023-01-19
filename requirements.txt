@@ -3,10 +3,9 @@ element-calcium-imaging>=0.3.0
 element-lab>=0.1.1
 element-animal>=0.1.2
 element-session>=0.1.2
-element-event @ git+https://github.com/datajoint/element-event.git
 element-interface @ git+https://github.com/datajoint/element-interface.git
 ipykernel>=6.0.1
 jupytext>=1.13.7
 sbxreader @ git+https://github.com/CBroz1/sbxreader
+scanreader @ git+https://github.com/atlab/scanreader.git
 nd2
-suite2p @ git+https://github.com/datajoint-company/suite2p.git

@@ -15,8 +15,8 @@ dj.config["custom"]["database.prefix"] = os.getenv(
     "DATABASE_PREFIX", dj.config["custom"].get("database.prefix", "")
 )
 
-dj.config["custom"]["raw_root_data_dir"] = os.getenv(
-    "RAW_ROOT_DATA_DIR", dj.config["custom"].get("raw_root_data_dir", "")
+dj.config["custom"]["imaging_root_data_dir"] = os.getenv(
+    "RAW_ROOT_DATA_DIR", dj.config["custom"].get("imaging_root_data_dir", "")
 )
 
 dj.config["custom"]["processed_root_data_dir"] = os.getenv(

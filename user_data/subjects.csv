@@ -1,2 +1,3 @@
 subject,sex,subject_birth_date,subject_description
-subject3,F,2020-01-01,Scanbox acquisition. Suite2p processing.
+subject0,F,2020-01-01,Scanimage acquisition. Caiman processing.
+subject1,F,2020-02-01,Scanimage acquisition. Caiman processing.
