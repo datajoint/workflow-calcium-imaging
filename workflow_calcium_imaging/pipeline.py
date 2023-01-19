@@ -4,14 +4,7 @@ from element_animal import subject
 from element_session import session_with_datetime as session
 from element_event import trial, event
 from element_calcium_imaging import scan, imaging
-from element_lab.lab import (
-    Source,
-    Lab,
-    Protocol,
-    User,
-    Project,
-    Location as LabLocation,
-)
+from element_lab.lab import Source, Lab, Protocol, User, Project
 from element_animal.subject import Subject
 from .paths import (
     get_imaging_root_data_dir,
@@ -27,30 +20,7 @@ if "custom" not in dj.config:
 
 db_prefix = dj.config["custom"].get("database.prefix", "")
 
-__all__ = [
-    "subject",
-    "lab",
-    "session",
-    "Equipment",
-    "trial",
-    "event",
-    "scan",
-    "imaging",
-    "Subject",
-    "Source",
-    "Lab",
-    "Protocol",
-    "User",
-    "Project",
-    "Session",
-    "LabLocation",
-    "Location",
-    "get_imaging_root_data_dir",
-    "get_scan_image_files",
-    "get_scan_box_files",
-    "get_nd2_files",
-    "get_prairieview_files",
-]
+__all__ = ["subject", "lab", "session", "trial", "event", "scan", "imaging"]
 
 
 # ------------- Activate "lab", "subject", "session" schema -------------
@@ -61,8 +31,6 @@ subject.activate(db_prefix + "subject", linking_module=__name__)
 
 Session = session.Session
 Experimenter = lab.User
-Equipment = reference.Equipment
-Location = reference.BrainRegion
 session.activate(db_prefix + "session", linking_module=__name__)
 
 
@@ -71,7 +39,8 @@ session.activate(db_prefix + "session", linking_module=__name__)
 trial.activate(db_prefix + "trial", db_prefix + "event", linking_module=__name__)
 
 # ------------- Activate "imaging" schema -------------
-
+Equipment = reference.Equipment
+Location = reference.BrainRegion
 imaging.activate(db_prefix + "imaging", db_prefix + "scan", linking_module=__name__)
 
 # ------------- Activate "analysis" schema ------------
