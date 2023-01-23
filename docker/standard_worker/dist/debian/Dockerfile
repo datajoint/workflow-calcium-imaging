@@ -13,6 +13,8 @@ USER anaconda:anaconda
 
 WORKDIR $HOME
 
+RUN mkdir /main/workflow-calcium-imaging
+
 RUN git clone --branch ccn2023 https://github.com/tdincer/workflow-calcium-imaging.git
 
 COPY ./workflow-calcium-imaging/apt_requirements.txt /tmp/
