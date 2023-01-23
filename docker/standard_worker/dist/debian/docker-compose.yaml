@@ -1,0 +1,33 @@
+# docker compose --env-file=../../.env  -f docker-compose.yaml -p workflow-calcium-imaging_ccn2023 build
+
+version: "2.4"
+services:
+  standard_worker:
+    build:
+      context: ../../
+      dockerfile: ./dist/debian/Dockerfile
+      args:
+        # May not need any of this.
+        - PY_VER
+        - DEPLOY_KEY
+        - WORKER_BASE_HASH
+        - REPO_OWNER
+        - REPO_NAME
+    image: registry.vathes.com/sciops/standard_ccn2023:py${PY_VER}-debian-${WORKFLOW_VERSION}
+    container_name: workflow-calcium-imaging-ccn2023
+    environment:
+      - CONTAINER_USER
+      - DJ_HOST
+      - DJ_USER
+      - DJ_PASS
+      - DATABASE_PREFIX=ccn2023_
+      - RAW_ROOT_DATA_DIR=/home/${CONTAINER_USER}/inbox
+      - PROCESSED_ROOT_DATA_DIR=/home/${CONTAINER_USER}/outbox
+    # volumes:
+    #   - ${ROOT_DATA_DIR}:/home/${CONTAINER_USER}/inbox
+    #   - ${PROCESSED_DATA_DIR}:/home/${CONTAINER_USER}/outbox
+    command:
+      - bash
+      - -c
+      - |
+        tail -f /dev/null
