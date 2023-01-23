@@ -14,7 +14,7 @@ WORKDIR $HOME
 
 RUN git clone --branch ccn2023 https://github.com/tdincer/workflow-calcium-imaging.git
 
-COPY ./workflow-calcium-imaging/apt_requirements.txt /tmp/
+RUN ./workflow-calcium-imaging/apt_requirements.txt /tmp/
 RUN /entrypoint.sh echo "Installed dependencies."
 
 RUN pip install Pygments
