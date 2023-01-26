@@ -1,0 +1,20 @@
+# cd ./docker/u24_codebook_env && set -a && source .env && docker-compose -f dist/debian/docker-compose-codebook_env.yaml build
+version: '2.4'
+services:
+  codebook_env:
+    build:
+      # only necessary if rebuilding image
+      context: ../../
+      dockerfile: ./dist/debian/codebook.Dockerfile
+      args:
+        - JHUB_VER
+        - PY_VER
+        - DIST
+        - REPO_OWNER
+        - REPO_NAME
+    image: registry.vathes.com/datajoint/codebook_${REPO_NAME}:jhub${JHUB_VER}-py${PY_VER}-${DIST}-${WORKFLOW_VERSION}
+    command:
+      - bash
+      - -c
+      - |
+        tail -f /dev/null
