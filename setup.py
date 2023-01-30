@@ -1,19 +1,19 @@
 #!/usr/bin/env python
 from setuptools import setup, find_packages
 from os import path
-import sys
+import subprocess
+import urllib.request
 
 pkg_name = "workflow_calcium_imaging"
 here = path.abspath(path.dirname(__file__))
 
 long_description = """"
-# Workflow for calcium imaging data acquired with ScanImage, Scanbox, or Nikon NIS software and analyzed with Suite2p or CaImAn.
+# Calcium Imaging Workflow with CaImAn for CCN2023.
 
 Build a complete imaging workflow using the DataJoint elements
 + [element-lab](https://github.com/datajoint/element-lab)
 + [element-animal](https://github.com/datajoint/element-animal)
 + [element-session](https://github.com/datajoint/element-session)
-+ [element-event](https://github.com/datajoint/element-event)
 + [element-calcium-imaging](https://github.com/datajoint/element-calcium-imaging)
 """
 
@@ -22,6 +22,18 @@ with open(path.join(here, "requirements.txt")) as f:
 
 with open(path.join(here, pkg_name, "version.py")) as f:
     exec(f.read())
+
+with urllib.request.urlopen(
+    "https://raw.githubusercontent.com/flatironinstitute/CaImAn/master/requirements.txt"
+) as f:
+    caiman_requirements = f.read().decode("UTF-8").split("\n")
+
+caiman_requirements.remove("")
+
+subprocess.call(["pip", "install", "numpy", "Cython"] + caiman_requirements)
+extras_require = {
+    "caiman": "caiman @ git+https://github.com/datajoint-company/CaImAn.git"
+}
 
 setup(
     name="workflow-calcium-imaging",
@@ -36,4 +48,5 @@ setup(
     keywords="neuroscience datajoint calcium-imaging",
     packages=find_packages(exclude=["contrib", "docs", "tests*"]),
     install_requires=requirements,
+    extras_require=extras_require,
 )
