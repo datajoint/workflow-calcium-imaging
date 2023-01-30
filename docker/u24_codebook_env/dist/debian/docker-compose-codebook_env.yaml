@@ -12,6 +12,7 @@ services:
         - DIST
         - REPO_OWNER
         - REPO_NAME
+        - CODEBOOK_BASE_HASH
     image: registry.vathes.com/datajoint/codebook_${REPO_NAME}:jhub${JHUB_VER}-py${PY_VER}-${DIST}-${WORKFLOW_VERSION}
     command:
       - bash

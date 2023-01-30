@@ -1,3 +1,2 @@
-subject,sex,subject_birth_date,subject_description
-subject0,F,2020-01-01,Scanimage acquisition. Caiman processing.
-subject1,F,2020-02-01,Scanimage acquisition. Caiman processing.
+subject,sex,subject_birth_date
+subject0,M,2023-02-01
