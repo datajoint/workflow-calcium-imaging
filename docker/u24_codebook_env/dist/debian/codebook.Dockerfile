@@ -18,10 +18,13 @@ RUN mkdir /home/user_data && \
     chown -R anaconda:anaconda /home/user_data && \
     chmod -R 775 /home/user_data
 
-RUN mkdir -p /home/data/subject0/session1
-COPY 5x_JB148_sess1_00035_00001.tif /home/data/subject0/session1
+RUN mkdir -p /home/data/subject0/session1 && \
+    chown -R anaconda:anaconda /home/data/subject0/session1 &&\
+    chmod -R 775 /home/data/subject0/session1
 
 USER anaconda
+
+COPY --chown=anaconda:anaconda 5x_JB148_sess1_00035_00001.tif /home/data/subject0/session1
 
 WORKDIR /tmp
 
