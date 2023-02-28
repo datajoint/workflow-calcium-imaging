@@ -17,13 +17,13 @@ RUN \
         pip install -e /workspaces/element-${f}; \
     done;
 
-RUN \  
-    echo "Install CaImAn ----------" && \
-    pip install Pygments==2.14.0  && \
-    git clone https://github.com/datajoint/CaImAn.git  && \
-    pip install -r ./CaImAn/requirements.txt  && \
-    pip install ./CaImAn && \
-    rm -rf /tmp/CaImAn;
+# RUN \  
+#     echo "Install CaImAn ----------" && \
+#     pip install Pygments==2.14.0  && \
+#     git clone https://github.com/datajoint/CaImAn.git  && \
+#     pip install -r ./CaImAn/requirements.txt  && \
+#     pip install ./CaImAn && \
+#     rm -rf /tmp/CaImAn;
 
 ENV DJ_HOST fakeservices.datajoint.io
 ENV DJ_USER root
