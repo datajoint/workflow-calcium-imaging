@@ -10,11 +10,8 @@ services:
     image: datajoint/mysql:${MYSQL_VER}
     environment:
       - MYSQL_ROOT_PASSWORD=${DJ_PASS}
-    # ports:
-    #   - "3306:3306"
-    # To persist MySQL data
-    # volumes:
-    #   - ./mysql/data:/var/lib/mysql
+    ports:
+      - "3306:3306"
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
       timeout: 30s
