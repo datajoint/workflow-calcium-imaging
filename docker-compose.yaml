@@ -7,9 +7,6 @@ services:
       - MYSQL_ROOT_PASSWORD=${DJ_PASS}
     ports:
       - "3306:3306"
-    # To persist MySQL data
-    # volumes:
-    #   - ./mysql/data:/var/lib/mysql
     healthcheck:
       test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
       timeout: 15s
