@@ -7,4 +7,3 @@ element-calcium-imaging>=0.3.0
 ipykernel>=6.0.1
 jupytext>=1.13.7
 scanreader @ git+https://github.com/atlab/scanreader.git
-suite2p

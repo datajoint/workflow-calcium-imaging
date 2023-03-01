@@ -11,6 +11,8 @@ RUN \
     pip install --upgrade pip && \
     pip install flake8 black pre-commit
 
+RUN pip install suite2p
+
 RUN \  
     echo "Install CaImAn ----------" && \
     pip install Pygments==2.14.0  && \
