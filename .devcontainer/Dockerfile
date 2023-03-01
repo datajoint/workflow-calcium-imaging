@@ -1,8 +1,5 @@
 FROM mcr.microsoft.com/devcontainers/python:3.7-bullseye
 
-ENV GITHUB_USER datajoint
-ENV ELEMENT calcium-imaging
-
 RUN \
     echo "Install DataJoint ----------" && \
     apt update && \
