@@ -6,15 +6,16 @@ ENV ELEMENT calcium-imaging
 RUN \
     echo "Install DataJoint ----------" && \
     apt update && \
-    apt-get install bash-completion graphviz default-mysql-client s3fs procps gcc -y && \
+    apt-get install bash-completion graphviz default-mysql-client s3fs procps -y && \
+    apt-get install gcc ffmpeg libsm6 libxext6 -y && \
     pip install --upgrade pip && \
     pip install flake8 black faker ipykernel pre-commit datajoint
 
 RUN \     
     echo "Install DataJoint Elements ----------" && \
     for f in lab animal session event interface $ELEMENT; do \
-        git clone https://github.com/${GITHUB_USER}/element-${f} /workspaces/element-${f} && \
-        pip install -e /workspaces/element-${f}; \
+    git clone https://github.com/${GITHUB_USER}/element-${f} /workspaces/element-${f} && \
+    pip install -e /workspaces/element-${f}; \
     done;
 
 RUN \  
