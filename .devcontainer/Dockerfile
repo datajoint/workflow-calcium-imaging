@@ -14,8 +14,7 @@ RUN \
 RUN \     
     echo "Install DataJoint Elements ----------" && \
     for f in lab animal session event interface $ELEMENT; do \
-    git clone https://github.com/${GITHUB_USER}/element-${f} /workspaces/element-${f} && \
-    pip install -e /workspaces/element-${f}; \
+    pip install git+https://github.com/${GITHUB_USER}/element-${f}.git; \
     done;
 
 RUN \  
