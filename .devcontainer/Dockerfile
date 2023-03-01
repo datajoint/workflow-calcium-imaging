@@ -9,13 +9,7 @@ RUN \
     apt-get install bash-completion graphviz default-mysql-client s3fs procps -y && \
     apt-get install gcc ffmpeg libsm6 libxext6 -y && \
     pip install --upgrade pip && \
-    pip install flake8 black faker ipykernel pre-commit datajoint
-
-RUN \     
-    echo "Install DataJoint Elements ----------" && \
-    for f in lab animal session event interface $ELEMENT; do \
-    pip install git+https://github.com/${GITHUB_USER}/element-${f}.git; \
-    done;
+    pip install flake8 black pre-commit 
 
 RUN \  
     echo "Install CaImAn ----------" && \
