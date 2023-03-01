@@ -9,7 +9,7 @@ RUN \
     apt-get install bash-completion graphviz default-mysql-client s3fs procps -y && \
     apt-get install gcc ffmpeg libsm6 libxext6 -y && \
     pip install --upgrade pip && \
-    pip install flake8 black pre-commit 
+    pip install flake8 black pre-commit
 
 RUN \  
     echo "Install CaImAn ----------" && \
