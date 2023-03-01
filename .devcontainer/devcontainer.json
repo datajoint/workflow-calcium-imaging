@@ -1,6 +1,6 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// For format details, see https://aka.ms/devcontainer.json.
 {
-	"name": "Development",
+	"name": "Demo",
 	"dockerComposeFile": "docker-compose.yaml",
 	"service": "app",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
@@ -15,11 +15,11 @@
 		"ghcr.io/eitsupi/devcontainer-features/jq-likes:1": {},
 		"ghcr.io/guiyomh/features/vim:0": {}
 	},
-	// "onCreateCommand": "pip install -e .",
-	"postStartCommand": "mkdir -p example_data && s3fs djhub.vathes.datapub.elements:/workflow-calcium-imaging-data-v2 example_data -o multipart_size=530,endpoint=us-east-1,url=http://s3.amazonaws.com,public_bucket=1 && MYSQL_VER=8.0 docker compose down && MYSQL_VER=8.0 docker compose up --build --wait",
+	"onCreateCommand": "pip install -e .",
+	"postStartCommand": "pip install suite2p && mkdir -p example_data && s3fs djhub.vathes.datapub.elements:/workflow-calcium-imaging-data-v2 example_data -o multipart_size=530,endpoint=us-east-1,url=http://s3.amazonaws.com,public_bucket=1 && MYSQL_VER=8.0 docker compose down && MYSQL_VER=8.0 docker compose up --build --wait",
 	"hostRequirements": {
-		"cpus": 2,
-		"memory": "4gb"
+		"cpus": 4,
+		"memory": "8gb"
 	},
 	"forwardPorts": [
 		3306,
