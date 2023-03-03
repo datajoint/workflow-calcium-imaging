@@ -14,8 +14,17 @@ RUN \
     git clone https://github.com/datajoint/CaImAn.git  && \
     pip install -r ./CaImAn/requirements.txt  && \
     pip install ./CaImAn && \
-    rm -rf /tmp/CaImAn;
+    rm -rf /tmp/CaImAn
+
+COPY ./requirements.txt /tmp/
+RUN \
+    pip install suite2p && \
+    pip install -r /tmp/requirements.txt && \
+    rm /tmp/requirements.txt
 
 ENV DJ_HOST fakeservices.datajoint.io
 ENV DJ_USER root
 ENV DJ_PASS simple
+
+ENV DJ_PUBLIC_S3_MOUNT_PATH /workspaces/workflow-calcium-imaging/example_data
+ENV DJ_PUBLIC_S3_LOCATION djhub.vathes.datapub.elements:/workflow-calcium-imaging-data-v2
