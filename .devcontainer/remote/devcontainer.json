@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json.
 {
 	"name": "Remote Demo",
-	"dockerComposeFile": "docker-compose-remote.yaml",
+	"dockerComposeFile": "docker-compose.yaml",
 	"service": "app",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 	// Use this environment variable if you need to bind mount your local source code into a new container.
@@ -16,7 +16,7 @@
 		"ghcr.io/guiyomh/features/vim:0": {}
 	},
 	"onCreateCommand": "mkdir -p ${DJ_PUBLIC_S3_MOUNT_PATH} && pip install -e . && MYSQL_VER=8.0 docker compose down && MYSQL_VER=8.0 docker compose up --build --wait",
-	"postStartCommand": "docker volume prune -f && ([ -z \"${DJ_PUBLIC_S3_LOCATION}\" ] || s3fs ${DJ_PUBLIC_S3_LOCATION} ${DJ_PUBLIC_S3_MOUNT_PATH} -o nonempty,multipart_size=530,endpoint=us-east-1,url=http://s3.amazonaws.com,public_bucket=1)",
+	"postStartCommand": "docker volume prune -f && s3fs ${DJ_PUBLIC_S3_LOCATION} ${DJ_PUBLIC_S3_MOUNT_PATH} -o nonempty,multipart_size=530,endpoint=us-east-1,url=http://s3.amazonaws.com,public_bucket=1",
 	"hostRequirements": {
 		"cpus": 4,
 		"memory": "8gb"
