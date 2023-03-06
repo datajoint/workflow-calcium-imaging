@@ -27,4 +27,3 @@ ENV DJ_USER root
 ENV DJ_PASS simple
 
 ENV DJ_PUBLIC_S3_MOUNT_PATH /workspaces/workflow-calcium-imaging/example_data
-ENV DJ_PUBLIC_S3_LOCATION djhub.vathes.datapub.elements:/workflow-calcium-imaging-data-v2

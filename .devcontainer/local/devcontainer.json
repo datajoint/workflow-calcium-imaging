@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json.
 {
-	"name": "Remote Demo",
-	"dockerComposeFile": "docker-compose-remote.yaml",
+	"name": "Local Demo",
+	"dockerComposeFile": "docker-compose-local.yaml",
 	"service": "app",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 	// Use this environment variable if you need to bind mount your local source code into a new container.
