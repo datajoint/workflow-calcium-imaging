@@ -15,8 +15,8 @@
 		"ghcr.io/eitsupi/devcontainer-features/jq-likes:1": {},
 		"ghcr.io/guiyomh/features/vim:0": {}
 	},
-	"onCreateCommand": "pip install -e . && MYSQL_VER=8.0 docker compose down && MYSQL_VER=8.0 docker compose up --build --wait",
-	"postStartCommand": "docker volume prune -f",
+	"onCreateCommand": "pip install -e .",
+	"postStartCommand": "docker volume prune -f && MYSQL_VER=8.0 docker compose down && MYSQL_VER=8.0 docker compose up --build --wait",
 	"hostRequirements": {
 		"cpus": 4,
 		"memory": "8gb"

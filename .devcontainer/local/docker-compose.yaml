@@ -6,6 +6,7 @@ services:
     build:
       context: ../..
       dockerfile: ./.devcontainer/Dockerfile
+    image: datajoint/workflow-calcium-imaging-demo:0.2.0
     extra_hosts:
       - fakeservices.datajoint.io:127.0.0.1
     volumes:
