@@ -7,3 +7,7 @@ Installation and usage instructions can be found at the
 [Element documentation](https://datajoint.com/docs/elements/element-calcium-imaging).
 
 ![diagram](https://raw.githubusercontent.com/datajoint/element-calcium-imaging/main/images/diagram_flowchart.svg)
+
+To use CodeSpaces locally on Windows, download AWS CLI via `pip install awscli` and run 
+`aws s3 sync s3://djhub.vathes.datapub.elements/workflow-calcium-imaging-data-v2 example_data
+--no-sign-request` in the root folder to download the data.
