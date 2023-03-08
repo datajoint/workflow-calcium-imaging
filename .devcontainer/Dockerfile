@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/devcontainers/python:3.7-bullseye
+FROM mcr.microsoft.com/devcontainers/python:3.9-bullseye
 
 RUN \
     echo "Install DataJoint ----------" && \
@@ -8,17 +8,20 @@ RUN \
     pip install --upgrade pip && \
     pip install flake8 black pre-commit
 
-RUN \  
-    echo "Install CaImAn ----------" && \
-    pip install Pygments==2.14.0  && \
-    git clone https://github.com/datajoint/CaImAn.git  && \
-    pip install -r ./CaImAn/requirements.txt  && \
-    pip install ./CaImAn && \
-    rm -rf /tmp/CaImAn
+# RUN \  
+#     echo "Install CaImAn ----------" && \
+#     pip install Pygments==2.14.0  && \
+#     git clone https://github.com/datajoint/CaImAn.git  && \
+#     pip install -r ./CaImAn/requirements.txt  && \
+#     pip install ./CaImAn && \
+#     rm -rf /tmp/CaImAn
 
 COPY ./requirements.txt /tmp/
 RUN \
-    pip install suite2p && \
+    git clone https://github.com/tdincer/suite2p.git && \
+    cd suite2p && git checkout 23c67b5 && \
+    pip install -e . && cd ..\
+    # pip install suite2p && \
     pip install -r /tmp/requirements.txt && \
     rm /tmp/requirements.txt
 
