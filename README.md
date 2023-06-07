@@ -1,3 +1,5 @@
+> ⚠️ This repository is no longer maintained. The notebooks, environment, and tests in this repository have been integrated within [datajoint/element-calcium-imaging](https://github.com/datajoint/element-calcium-imaging).
+
 # DataJoint Workflow - Functional Calcium Imaging
 
 DataJoint Workflow for functional calcium imaging combines multiple DataJoint Elements to process data acquired with [ScanImage](http://scanimage.vidriotechnologies.com), [Scanbox](https://scanbox.org), `Nikon
